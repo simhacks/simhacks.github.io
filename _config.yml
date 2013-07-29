@@ -1,7 +1,8 @@
-name: Your New Jekyll Site
+name: simhacks
+description: Information about SIM Cards and STK Applets.
+
 markdown: redcarpet
 pygments: true
-
 
 navigation:
   - text: DEFCON 21 Talk
