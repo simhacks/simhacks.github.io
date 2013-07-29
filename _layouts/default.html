@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - simhacks</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/docs.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+      <div class="container">
+        <a href="/" class="navbar-brand">simhacks</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="nav-collapse collapse bs-navbar-collapse">
+          <ul class="nav navbar-nav">
+
+          {% for link in site.navigation %}
+            {% assign current = nil %}
+            {% if page.id == link.id %}
+              {% assign current = 'active' %}
+            {% endif %}
+            <li class="{{ current }}">
+              <a href="{{ link.url }}">{{ link.text }}</a>
+            </li>
+          {% endfor %}
+
+<!--
+            <li>
+              <a href="/defcon-21">DEFCON Talk</a>
+            </li>
+            <li>
+              <a href="/stk-applets">STK Applets</a>
+            </li>
+            <li class="active">
+              <a href="/android-emulator">Android Emulator</a>
+            </li>
+            <li>
+              <a href="../resources">Resources</a>
+            </li>
+          -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {{ content }}
+
+    <footer class="bs-footer">
+    </footer>
+
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/simhacks.js"></script>
+  </body>
+</html>

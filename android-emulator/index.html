@@ -1,0 +1,184 @@
+---
+layout: default
+title: Android Emulator
+id: android-emulator
+---
+<div class="bs-header">
+  <div class="container">
+    <h1>Android Emulator</h1>
+    <p>Using real SIM cards with the Android Emulator.</p>
+  </div>
+</div>
+
+<div class="container bs-docs-container">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="bs-sidebar">
+        <ul class="nav bs-sidenav">
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#addon">SDK Manager Addon</a>
+          </li>
+          <li class="compile">
+            <a href="#source">Compiling from Source</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="introduction">Introduction</h1>
+        </div>
+        <p class="lead">
+          The SEEK project provides patches for the Android emulator and system enabling full communication with real SIM cards in a standard USB PCSC reader.
+        </p>
+
+        <p>
+          More information at
+          <a href="https://code.google.com/p/seek-for-android/wiki/EmulatorExtension">
+            https://code.google.com/p/seek-for-android/wiki/EmulatorExtension
+          </a>
+          .
+        </p>
+
+        <div class="page-header">
+          <h1 id="addon">SDK Manager Addon</h1>
+        </div>
+
+        <p class="lead">
+          We have created an addon repository for the
+          <a href="http://developer.android.com/tools/help/sdk-manager.html">Android SDK Manager</a>
+          to easily get the patched emulator up and running without the need to compile anything.
+        </p>
+
+        <h3>Setting up the SDK</h3>
+
+        <p>
+          To add the repository, launch the SDK Manager and select <em>Tools</em>
+          &rarr; <em>Manage Add-On Sites...</em>
+          &rarr;
+          <em>User Defnied Sites</em>
+          &rarr;
+          <em>Add</em>
+          and enter this URL:
+        </p>
+
+        <pre>http://foo</pre>
+
+        <p>This will a few new items to the list of available packages:</p>
+
+        <ul>
+          <li> <strong>Android 4.2.2 (API 17) / Simhacks x86 System Image</strong>
+            <br>
+            A system image containing the SEEK userspace libraries as well as the Stk app. This image will work on any host operating system.
+          </li>
+          <li> <strong>Extras / Simhacks Emulator</strong>
+            <br>
+            A modified version of the Android emulator containing the SEEK patches. Binaries for OSX, Linux, and Windows provided.
+          </li>
+        </ul>
+
+        <h3>Creating an AVD</h3>
+
+        <p>todo</p>
+
+        <h3>Starting the Emulator</h3>
+
+        <p>
+          Ensure you have
+          <code>pcscd</code>
+          running and that it detects your reader. You'll then need to start the patched emulator:
+        </p>
+
+        <pre>$ extras/simhacks/emulator -pcsc @MyAVD</pre>
+
+        <p>
+          If your SIM card contains STK applets, the
+          <strong>SIM Menu</strong>
+          app should appear and display your menu:
+        </p>
+
+        <p>(screnshot)</p>
+
+        <div class="page-header">
+          <h1 id="source">Compiling from Source</h1>
+        </div>
+        <p class="lead">
+          If you don't trust our binaries or want to make additional changes, you can compile everything yourself.
+        </p>
+        <p>
+          Follow the standard instructions for
+          <a href="http://source.android.com/source/initializing.html">Initializing a Build Environment</a>
+          . When it comes time to sync the source code, use our repo manifest:
+        </p>
+
+        <pre>$ repo init -u https://github.com/simhacks/android_manifest</pre>
+
+        <h3>Linux Emulator</h3>
+
+        <p>
+          See
+          <a href="https://code.google.com/p/seek-for-android/wiki/EmulatorExtension">SEEK documentation</a>
+          .
+        </p>
+
+        <h3>OSX Emulator</h3>
+
+        <p>
+          The Android Build System works on OSX if you create a
+          <a href="http://source.android.com/source/initializing.html#creating-a-case-sensitive-disk-image">case-sensitive disk image</a>
+          . To compile only the emulator without the rest of Android, you can run:
+        </p>
+
+        <pre>$ PCSC_INCPATH=/System/Library/Frameworks/PCSC.framework/Headers \
+  PCSC32_LIBPATH=/System/Library/Frameworks/PCSC.framework/Versions/Current \
+  PCSC64_LIBPATH=/System/Library/Frameworks/PCSC.framework/Versions/Current \
+  make -j4 emulator-x86</pre>
+
+        <h3>Windows Emulator (Linux Build System)</h3>
+        <p>To cross-compile a Windows emulator on a Linux system:</p>
+
+        <ol>
+          <li>Install MinGW32.</li>
+          <li>
+            Copy WinSCard.h, WinSmCrd.h, and scarderr.h from the Windows SDK to the MinGW include directory.
+          </li>
+          <li>
+            Make symlinks from winscard.h to WinSCard.h and winsmcrd.h to WinSmCrd.h
+          </li>
+          <li>
+            Add these lines to winscard.h:
+            <pre>#define __in
+#define __out
+#define __inout
+#define __reserved
+#define __nullterminated
+#define __nullnullterminated
+#define __in_opt
+#define __out_ecount_opt(x)
+#define __in_ecount_opt(x)
+#define __out_opt
+#define __out_bcount(x)
+#define __inout_opt
+#define __in_bcount(x)
+#define __out_bcount_opt(x)</pre>
+          </li>
+          <li>
+            Copy winscard.lib from the Windows SDK to the MinGW library directory.
+          </li>
+          <li>
+            Hack external/qemu/hw/goldfish_mmc.c to remove calls to ioctl (comment out lines 17, 467, 471, 598, 603-614)
+          </li>
+          <li>export USE_MINGW=1</li>
+          <li>build it w/ showcommands</li>
+          <li>
+            When the final link fails, copy the command line and add a reference to WinSCard.lib
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
