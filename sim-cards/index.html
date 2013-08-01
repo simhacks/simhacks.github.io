@@ -1,0 +1,111 @@
+---
+layout: default
+title: STK Applets
+id: sim-cards
+---
+
+<div class="bs-header">
+	<div class="container">
+		<h1>SIM Cards</h1>
+		<p>Random notes about interfacing with SIM cards.</p>
+	</div>
+</div>
+
+<div class="container bs-docs-container">
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="bs-sidebar">
+				<ul class="nav bs-sidenav">
+					<li>
+						<a href="#smart-cards">Smart Card Standards</a>
+					</li>
+					<li>
+						<a href="#global-platform">GlobalPlatform</a>
+					</li>
+					<li><a href="#references">References</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-9">
+			<div class="bs-docs-section">
+				<div class="page-header">
+					<h1 id="smart-cards">Smart Card Standards</h1>
+				</div>
+				<p style="text-align: center"><a href="https://en.wikipedia.org/wiki/File:SmartCardPinout.svg"><img style="background: #aaa; padding: 10px" src="/img/smart-pinout.png"></a></p>
+				<ul>
+					<li>ISO 7816-1: Physical characteristics</li>
+					<li>ISO 7816-2: Electrical contacts</li>
+					<li>ISO 7816-3: Electrical interface, Transmission Protocol Data Units (TPDUs)
+						<ul>
+							<li>T=0:  Byte-oriented protocol</li>
+							<li>T=1:  Block-oriented protocol</li>
+						</ul>
+					</li>
+					<li>ISO 7816-4: Standard commands,  Application Protocol Data Units (APDUs)</li>
+					<li>ISO 14443-4: “T=CL”: APDUs over RFID</li>
+				</ul>
+
+				<p class="thumbs">
+					<a href="/img/smart-slide1.png"><img width="200" src="/img/smart-slide1.png"></a>
+					<a href="/img/smart-slide2.png"><img width="200" src="/img/smart-slide2.png"></a>
+					<a href="/img/smart-slide3.png"><img width="200" src="/img/smart-slide3.png"></a>
+					<a href="/img/smart-slide4.png"><img width="200" src="/img/smart-slide4.png"></a>
+				</p>
+			</div>
+
+			<div class="bs-docs-section">
+				<div class="page-header">
+					<h1 id="global-platform">GlobalPlatform</h1>
+				</div>
+
+				<h3>At install time, you can specify:</h3>
+				<ul>
+					<li>Initialization data</li>
+					<li>App parameters
+						<ul>
+							<li>STK uses these extensively
+								<ul>
+									<li>Privileges</li>
+									<li>Priority</li>
+									<li>Number of menu items</li>
+									<li>Max menu item size</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<p class="thumbs">
+					<a href="/img/smart-slide5.png"><img width="200" src="/img/smart-slide5.png"></a>
+					<a href="/img/smart-slide6.png"><img width="200" src="/img/smart-slide6.png"></a>
+					<a href="/img/smart-slide7.png"><img width="200" src="/img/smart-slide7.png"></a>
+				</p>
+
+				<h3>Other fun commands:</h3>
+				<ul>
+					<li>List AIDs, including both modules and instances</li>
+					<li>Delete AIDs</li>
+					<li>You MUST delete instances before deleting the executable!</li>
+					<li>You MUST delete old AIDs before reusing them!</li>
+				</ul>
+			</div>
+
+			<div class="bs-docs-section">
+				<div class="page-header">
+					<h1 id="references">References</h1>
+				</div>
+				<ul>
+					<li>Java Card 2.1.1 Virtual Machine Specification</li>
+					<li>GlobalPlatform card specification 2.1/2.2</li>
+					<li>GSM 03.48 – Secure remote SIM access</li>
+					<li>GSM 03.40 – SMS standard</li>
+					<li>ETSI TS 101 220 – Assigned numbers</li>
+					<li>ETSI TS 102 221 – UICC/(U)SIM spec</li>
+					<li>ETSI TS 102 223 – Card Application Toolkit</li>
+					<li>ETSI TS 102 226 – Remote APDUs</li>
+					<li>ETSI TS 102 241 – UICC/SIM API for JavaCard</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

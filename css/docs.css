@@ -884,3 +884,10 @@ input.focused {
   }
 
 }
+
+
+
+
+p.thumbs img {
+  margin-bottom: 5px;
+}

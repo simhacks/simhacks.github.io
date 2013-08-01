@@ -8,7 +8,10 @@ navigation:
   - text: DEFCON 21 Talk
     url: /defcon-21/
     id: defcon-21
-  - text: STK Applets
+  - text: SIM Cards
+    url: /sim-cards/
+    id: sim-cards
+  - text: JavaCard STK Applets
     url: /stk-applets/
     id: stk-applets
   - text: Android Emulator
