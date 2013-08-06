@@ -20,3 +20,6 @@ navigation:
   - text: Resources
     url: /resources/
     id: resources
+  - text: Store
+    url: /store/
+    id: store
